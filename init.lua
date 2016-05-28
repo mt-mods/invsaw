@@ -136,7 +136,7 @@ invsaw.on_take = function(inv, listname, index, stack, player)
 			player_inv:add_item("main", input_stack)
 		end
 
-		circular_saw:reset(pos)
+		invsaw.reset(inv,player:get_player_name())
 		return
 	end
 
