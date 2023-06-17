@@ -23,7 +23,11 @@ invsaw.formspec = "formspec_version[4]"..
                   "list[detached:invsaw_%s;output;4,1;8,6;]" ..
                   ui.make_inv_img_grid(3.88, 9.38,  8, 1, true)..
                   ui.make_inv_img_grid(3.88, 10.63, 8, 3)..
-                  "list[current_player;main;4,9.5;8,4;]"
+                  "list[current_player;main;4,9.5;8,4;]"..
+				  "listring[current_player;main]"..
+				  "listring[detached:invsaw_%s;input]"..
+				  "listring[current_player;main]"..
+				  "listring[detached:invsaw_%s;output]"
 
 invsaw.nosawformspec =  "size[5,2]"..
 			"label[0,0;You don't have a circular saw in your inventory!\nYou need to have one in order to use this function.]"..
@@ -214,7 +218,7 @@ minetest.register_on_player_receive_fields(function(player,formname,fields)
 		local creative = minetest.setting_getbool("creative_mode") or minetest.check_player_privs(name,{creative=true})
 		local havesaw = player:get_inventory():contains_item("main","moreblocks:circular_saw")
 		if havesaw or creative then
-			minetest.show_formspec(name,"invsaw:saw",string.format(invsaw.formspec,name,name,name,invsaw.users[name].max_offered,name))
+			minetest.show_formspec(name,"invsaw:saw",string.format(invsaw.formspec,name,name,name,invsaw.users[name].max_offered,name,name,name))
 		else
 			minetest.show_formspec(name,"invsaw:nosaw",invsaw.nosawformspec)
 		end
@@ -222,7 +226,7 @@ minetest.register_on_player_receive_fields(function(player,formname,fields)
 	elseif formname == "invsaw:saw" and fields.Set then
 		invsaw.users[name].max_offered = tonumber(fields.max_offered) or 99
 		invsaw.update_inventory(invsaw.users[name].inv,name,0)
-		minetest.show_formspec(name,"invsaw:saw",string.format(invsaw.formspec,name,name,name,invsaw.users[name].max_offered,name))
+		minetest.show_formspec(name,"invsaw:saw",string.format(invsaw.formspec,name,name,name,invsaw.users[name].max_offered,name,name,name))
 		return true
 	else
 		return false
