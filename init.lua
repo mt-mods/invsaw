@@ -47,7 +47,7 @@ function invsaw.update_inventory(inv, name, amount)
 		invsaw.reset(inv,name)
 		return
 	end
- 
+
 	local stack = inv:get_stack("input",  1)
 	-- At least one "normal" block is necessary to see what kind of stairs are requested.
 	if stack:is_empty() then
@@ -86,7 +86,7 @@ function invsaw.update_inventory(inv, name, amount)
 
 end
 
-invsaw.allow_put = function(inv, listname, index, stack, player)
+invsaw.allow_put = function(inv, listname, index, stack)
 	-- The player is not allowed to put something in there:
 	if listname == "output" or listname == "micro" then
 		return 0
@@ -127,7 +127,7 @@ invsaw.allow_put = function(inv, listname, index, stack, player)
 				return 0
 			end
 		end
-		for name, t in pairs(circular_saw.known_nodes) do
+		for name in pairs(circular_saw.known_nodes) do
 			if name == stackname and inv:room_for_item("input", stack) then
 				return count
 			end
@@ -168,7 +168,7 @@ invsaw.on_take = function(inv, listname, index, stack, player)
 	-- The recycle field plays no role here since it is processed immediately.
 end
 
-invsaw.on_put = function(inv, listname, index, stack, player)
+invsaw.on_put = function(inv, listname, _, stack, player)
 	-- We need to find out if the circular_saw is already set to a
 	-- specific material or not:
 	local stackname = stack:get_name()
