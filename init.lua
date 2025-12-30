@@ -157,8 +157,8 @@ invsaw.on_take = function(inv, listname, index, stack, player)
 	-- If it is one of the offered stairs: find out how many
 	-- microblocks have to be substracted:
 	if listname == "output" then
-		-- We do know how much each block at each position costs:
-		local cost = circular_saw.cost_in_microblocks[index]
+		-- We do know how much each possible output costs:
+		local cost = stack:get_definition()._circular_saw_cost
 				* stack:get_count()
 
 		invsaw.update_inventory(inv, player:get_player_name(), -cost)
