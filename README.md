@@ -1,9 +1,9 @@
 invsaw
 
-A mod for [minetest](http://www.minetest.net)
+A mod for [Luanti](http://www.luanti.org)
 
 ![luacheck](https://github.com/mt-mods/invsaw/workflows/luacheck/badge.svg)
-[![ContentDB](https://content.minetest.net/packages/mt-mods/invsaw/shields/downloads/)](https://content.minetest.net/packages/mt-mods/invsaw/)
+[![ContentDB](https://content.luanti.org/packages/mt-mods/invsaw/shields/downloads/)](https://content.luanti.org/packages/mt-mods/invsaw/)
 
 
 ![](./screenshot.png)
