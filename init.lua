@@ -194,12 +194,12 @@ invsaw.on_put = function(inv, listname, _, stack, player)
 	end
 end
 
-minetest.register_on_joinplayer(function(player)
+core.register_on_joinplayer(function(player)
 	local name = player:get_player_name(player)
 	invsaw.users[name] = {}
 	invsaw.users[name].micros = 0
 	invsaw.users[name].max_offered = 99
-	local inv = minetest.create_detached_inventory("invsaw_"..name,{
+	local inv = core.create_detached_inventory("invsaw_"..name,{
 		allow_put = invsaw.allow_put,
 		on_put = invsaw.on_put,
 		on_take = invsaw.on_take,
@@ -212,21 +212,21 @@ minetest.register_on_joinplayer(function(player)
 	invsaw.users[name].inv = inv
 end)
 
-minetest.register_on_player_receive_fields(function(player,formname,fields)
+core.register_on_player_receive_fields(function(player,formname,fields)
 	local name = player:get_player_name()
 	if fields.saw then
-		local creative = minetest.setting_getbool("creative_mode") or minetest.check_player_privs(name,{creative=true})
+		local creative = core.setting_getbool("creative_mode") or core.check_player_privs(name,{creative=true})
 		local havesaw = player:get_inventory():contains_item("main","moreblocks:circular_saw")
 		if havesaw or creative then
-			minetest.show_formspec(name,"invsaw:saw",string.format(invsaw.formspec,name,name,name,invsaw.users[name].max_offered,name,name,name))
+			core.show_formspec(name,"invsaw:saw",string.format(invsaw.formspec,name,name,name,invsaw.users[name].max_offered,name,name,name))
 		else
-			minetest.show_formspec(name,"invsaw:nosaw",invsaw.nosawformspec)
+			core.show_formspec(name,"invsaw:nosaw",invsaw.nosawformspec)
 		end
 		return true
 	elseif formname == "invsaw:saw" and fields.Set then
 		invsaw.users[name].max_offered = tonumber(fields.max_offered) or 99
 		invsaw.update_inventory(invsaw.users[name].inv,name,0)
-		minetest.show_formspec(name,"invsaw:saw",string.format(invsaw.formspec,name,name,name,invsaw.users[name].max_offered,name,name,name))
+		core.show_formspec(name,"invsaw:saw",string.format(invsaw.formspec,name,name,name,invsaw.users[name].max_offered,name,name,name))
 		return true
 	else
 		return false
