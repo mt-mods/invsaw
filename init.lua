@@ -215,7 +215,7 @@ end)
 core.register_on_player_receive_fields(function(player,formname,fields)
 	local name = player:get_player_name()
 	if fields.saw then
-		local creative = core.setting_getbool("creative_mode") or core.check_player_privs(name,{creative=true})
+		local creative = core.settings:get_bool("creative_mode") or core.check_player_privs(name,{creative=true})
 		local havesaw = player:get_inventory():contains_item("main","moreblocks:circular_saw")
 		if havesaw or creative then
 			core.show_formspec(name,"invsaw:saw",string.format(invsaw.formspec,name,name,name,invsaw.users[name].max_offered,name,name,name))
